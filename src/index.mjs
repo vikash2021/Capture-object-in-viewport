@@ -1,15 +1,48 @@
 import "./styles.css";
 
+// debounced scroll event
+// detect html elements that are in viewport
 
+const inViewPortHandler = (elm) => {
+    const elmDim = elm.getBoundingClientRect();
+    const viewHeight = window.innerHeight || document.documentElement.clientHeight;
+    const viewWidth = window.innerWidth || document.documentElement.clientWidth;
+    
+    return elmDim.top >= 0 && elmDim.left >= 0 && elmDim.right <= viewWidth && 
+    elmDim.bottom <= viewHeight;
+  };
+  
+  const detectInViewport = () => {
+    const result = [];
+    const blocks = document.querySelectorAll(".blocks");
+    blocks.forEach((elm) => {
+      if(inViewPortHandler(elm)){
+        result.push(elm.textContent);
+      }
+    });
+    console.log(result);
+  }
+  
+  const debounce = (func, delay) => {
+    let timer;
+    return function() {
+      const context = this;
+      const args = arguments;
+      clearTimeout(timer);
+      timer = setTimeout(() => func.apply(context, args), delay);
+    };
+  };
+  
+  const debouncedDetect = debounce(detectInViewport, 1000);
+  
+window.addEventListener('scroll', debouncedDetect, false);
 
 document.getElementById("app").innerHTML = `
-<h1>Men Shirts</h1>
-<div>
+<div class="wrapper">
 <div class="blocks">Allen Solly</div>
 <div class="blocks">Peter England</div>
 <div class="blocks">Turtle</div>
 <div class="blocks">Tribe</div>
-
 <div class="blocks">Ninja</div>
 <div class="blocks">Blackberry</div>
 <div class="blocks">Louis Phillipe</div>
@@ -24,7 +57,7 @@ document.getElementById("app").innerHTML = `
 <div class="blocks">Allen Cooper</div>
 <div class="blocks">Jack & Jones</div>
 <div class="blocks">Lacoste</div>
-<div class="blocks">Mettle</div>
+
 
 </div>
 `;
