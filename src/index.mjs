@@ -9,6 +9,7 @@ document.getElementById("app").innerHTML = `
 <div class="blocks">Peter England</div>
 <div class="blocks">Turtle</div>
 <div class="blocks">Tribe</div>
+
 <div class="blocks">Ninja</div>
 <div class="blocks">Blackberry</div>
 <div class="blocks">Louis Phillipe</div>
